@@ -3,7 +3,9 @@ import {
     Entity,
     PrimaryGeneratedColumn,
     Column,
+    OneToOne,
 } from "typeorm";
+import UserPersonalData from "./UserPersonalData";
 
 @Entity("users")
 export default class User extends BaseEntity {
@@ -15,4 +17,7 @@ export default class User extends BaseEntity {
 
     @Column()
     password: string;
+
+    @OneToOne(() => UserPersonalData, userPersonalData => userPersonalData.user)
+    personalData: UserPersonalData;
 }

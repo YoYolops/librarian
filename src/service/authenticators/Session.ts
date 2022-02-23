@@ -1,5 +1,6 @@
 import TokenAdapter from '../adapters/interfaces/TokenAdapter';
 import TokenProtocol from '../adapters/interfaces/TokenProtocol';
+import BaseUserEncodeData from '../protocols/BaseUserEncodeData';
 
 export default class Session {
     private tokenProtocol: TokenProtocol;
@@ -10,7 +11,7 @@ export default class Session {
         this.tokenAdapter = tokenAdapter;
     }
 
-    create(userData?: any): TokenProtocol {
+    create(userData?: BaseUserEncodeData): TokenProtocol {
         const createdSession = this.tokenAdapter.generate(userData);
         this.tokenProtocol = createdSession;
         return createdSession;
