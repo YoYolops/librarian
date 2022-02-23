@@ -5,6 +5,7 @@ import Login from "./protocols/Login";
 import TokenProtocol from "./adapters/interfaces/TokenProtocol";
 import Session from "./authenticators/Session";
 import BaseUserEncodeData from "./protocols/BaseUserEncodeData";
+import UserRegistrationProtocol from "./protocols/UserRegistrationData";
 
 export default class User extends BaseService {
     private encrypter;
@@ -36,6 +37,10 @@ export default class User extends BaseService {
         }
         const tokenData = this.sessionManager.create(userDataToEncode);
 
-        return tokenData
+        return tokenData;
+    }
+
+    async register(UserData: UserRegistrationProtocol) {
+
     }
 }

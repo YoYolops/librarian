@@ -19,6 +19,12 @@ export default class UserPersonalData extends BaseEntity {
     @Column()
     name: string;
 
+    @Column()
+    email: string;
+
+    @Column()
+    birth: string;
+
     @OneToOne(() => User)
     @JoinColumn({ name: 'user_id' })
     user: User;
