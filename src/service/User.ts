@@ -40,7 +40,8 @@ export default class User extends BaseService {
         return tokenData;
     }
 
-    async register(UserData: UserRegistrationProtocol) {
-
+    async register(userData: UserRegistrationProtocol) {
+        const newUserCreated = await super.getEntity().registerNew(userData);
+        return newUserCreated;
     }
 }

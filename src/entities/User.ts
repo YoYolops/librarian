@@ -47,7 +47,8 @@ export default class User extends BaseEntity {
                 birth,
             }
         })
-        await newUser.save();
+        const newUserCreated = await newUser.save();
+        return newUserCreated;
     }
 
     static async isUserAlreadyRegistered(userData: UserRegistrationProtocol): Promise<boolean> {
