@@ -1,7 +1,7 @@
 import { getRepository } from "typeorm";
 import NotFoundError from "../errors/NotFoundError";
 
-export default class BaseService {
+export default abstract class BaseService {
     private entity: any;
 
     constructor(entity: any) {

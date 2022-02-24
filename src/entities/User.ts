@@ -9,6 +9,7 @@ import UserPersonalData from "./UserPersonalData";
 import UserRegistrationProtocol from "../service/protocols/UserRegistrationData";
 import UserError from "../errors/UserError";
 import BcryptAdapter from "../service/adapters/BcryptAdapter";
+import BaseUserEncodeData from "../service/protocols/BaseUserEncodeData";
 
 @Entity("users")
 export default class User extends BaseEntity {
@@ -51,7 +52,7 @@ export default class User extends BaseEntity {
         return newUserCreated;
     }
 
-    static async isUserAlreadyRegistered(userData: UserRegistrationProtocol): Promise<boolean> {
+    static async isUserAlreadyRegistered(userData: UserRegistrationProtocol & BaseUserEncodeData): Promise<boolean> {
         const {
             username,
             email,
