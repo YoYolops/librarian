@@ -21,15 +21,22 @@ export default class SessionHandler {
 
     static async decodedUserDataDoesReallyMatchAny(decodedData: BaseUserEncodeData): Promise<boolean> {
         /* We need to prevent that a non registered user sends a token, having access to the system without really being registred */
-        const userFound = await User.isUserAlreadyRegistered({
+        const isUserRegistered = await User.isUserAlreadyRegistered({
             username: decodedData.username,
         })
+        return isUserRegistered;
     }
 
-    static handle(req: Request, res: Response, next: NextFunction) {
+    static async handle(req: Request, res: Response, next: NextFunction) {
         const extractedToken = this.extractSessionTokenFromHeaders(req.headers);
         const decodedDataFromToken = this.decodeFoundToken(extractedToken);
-        req.addresser = decodedDataFromToken;
-        return next();
+
+        const doesDataMatchWithAnyRegisteredUser = await this.decodedUserDataDoesReallyMatchAny(decodedDataFromToken);
+        if(doesDataMatchWithAnyRegisteredUser) {
+            req.addresser = decodedDataFromToken;
+            return next();
+        }
+        throw new SecurityError("The provided credential could not be accepted");
     }
+
 }
