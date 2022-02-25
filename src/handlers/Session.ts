@@ -1,7 +1,7 @@
 import SecurityError from "../errors/SecurityError";
 import { Request, Response, NextFunction } from "express";
-import JWTAdapter from "../service/adapters/JWTAdapter";
-import BaseUserEncodeData from "../service/protocols/BaseUserEncodeData";
+import JWTAdapter from "../services/adapters/JWTAdapter";
+import BaseUserEncodeData from "../services/protocols/BaseUserEncodeData";
 import User from "../entities/User";
 
 export default class SessionHandler {

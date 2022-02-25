@@ -6,9 +6,9 @@ import {
     OneToOne,
 } from "typeorm";
 import UserPersonalData from "./UserPersonalData";
-import UserRegistrationProtocol from "../service/protocols/UserRegistrationData";
+import UserRegistrationProtocol from "../services/protocols/UserRegistrationData";
 import UserError from "../errors/UserError";
-import BcryptAdapter from "../service/adapters/BcryptAdapter";
+import BcryptAdapter from "../services/adapters/BcryptAdapter";
 import UserSearch from "../protocols/UserSearch";
 
 @Entity("users")
@@ -25,7 +25,7 @@ export default class User extends BaseEntity {
     @OneToOne(() => UserPersonalData, userPersonalData => userPersonalData.user)
     personalData: UserPersonalData;
 
-    static async registerNew(userData: UserRegistrationProtocol) {
+    static async registerNew(userData: UserRegistrationProtocol): Promise<User> {
         const {
             username,
             password,

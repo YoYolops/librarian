@@ -3,18 +3,19 @@ import BaseService from "../protocols/BaseService";
 import Encrypt from "./adapters/interfaces/Encrypt";
 import Login from "./protocols/Login";
 import TokenProtocol from "./adapters/interfaces/TokenProtocol";
-import Session from "./authenticators/Session";
 import BaseUserEncodeData from "./protocols/BaseUserEncodeData";
 import UserRegistrationProtocol from "./protocols/UserRegistrationData";
+import TokenAdapter from "./adapters/interfaces/TokenAdapter";
+import User from "../entities/User";
 
-export default class User extends BaseService {
+export default class UserService extends BaseService {
     private encrypter;
-    private sessionManager;
+    private tokenAdapter;
 
-    constructor(entity: any, encrypter: Encrypt, sessionManager: Session) {
+    constructor(entity: any, encrypter: Encrypt, tokenAdapter: TokenAdapter) {
         super(entity);
         this.encrypter = encrypter;
-        this.sessionManager = sessionManager;
+        this.tokenAdapter = tokenAdapter;
     }
 
     async login(loginProtocol: Login): Promise<TokenProtocol> {
@@ -35,12 +36,11 @@ export default class User extends BaseService {
             username: userFound.username,
             name: userFound.personalData.name,
         }
-        const tokenData = this.sessionManager.create(userDataToEncode);
-
+        const tokenData = this.tokenAdapter.generate(userDataToEncode);
         return tokenData;
     }
 
-    async register(userData: UserRegistrationProtocol) {
+    async register(userData: UserRegistrationProtocol): Promise<User> {
         const newUserCreated = await super.getEntity().registerNew(userData);
         return newUserCreated;
     }
