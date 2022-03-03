@@ -62,7 +62,8 @@ export default class User extends BaseEntity {
             where: [
                 { username },
                 { personalData: { email } }
-            ]
+            ],
+            relations: ["personalData"]
         })
 
         return !!alreadyExistentData.length;

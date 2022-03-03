@@ -17,8 +17,9 @@ export default class ErrorHandler {
     }
     
     static handle(error: any, req: Request, res: Response, next: NextFunction) {
-        console.log();
         if(ErrorHandler.isErrorKnown(error)) return res.status(error.statusCode).send(error.message);
+        console.log("UNEXPECTED SERVER ERROR");
+        console.log(error);
         return res.status(500).send("Sorry, part of our application have been abducted, we're working to get it back")
     }
 }

@@ -9,8 +9,8 @@ import TokenAdapter from "./adapters/interfaces/TokenAdapter";
 import User from "../entities/User";
 
 export default class UserService extends BaseService {
-    private encrypter;
-    private tokenAdapter;
+    private encrypter: Encrypt;
+    private tokenAdapter: TokenAdapter;
 
     constructor(entity: any, encrypter: Encrypt, tokenAdapter: TokenAdapter) {
         super(entity);
@@ -20,7 +20,7 @@ export default class UserService extends BaseService {
 
     async login(loginProtocol: Login): Promise<TokenProtocol> {
         const { username, password } = loginProtocol;
-        const userFound = await super.getEntity().findOne({
+        const userFound = await super.getRepository().findOne({
             where: {
                 username,
             },

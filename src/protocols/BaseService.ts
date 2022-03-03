@@ -8,7 +8,11 @@ export default abstract class BaseService {
         this.entity = entity;
     }
 
-    getEntity(): any {
+    getEntity() {
+        return this.entity;
+    }
+
+    getRepository(): any {
         return getRepository(this.entity);
     }
 
