@@ -13,11 +13,19 @@ async function registerUser(req: Request, res: Response, next: NextFunction) {
     try {
         const registeredUser = await userService.register(body);
         return res.status(201).send(registeredUser);
-    } catch(error) {
-        return next(error);
-    }
+    } catch(error) { return next(error); }
+}
+
+async function loginUser(req: Request, res: Response, next: NextFunction) {
+    const { body } = req;
+    try {
+        const loggedUserToken = await userService.login(body);
+        console.log(loggedUserToken);
+        return res.status(200).send(loggedUserToken);
+    } catch(error) { return next(error); }
 }
 
 export default {
     registerUser,
+    loginUser
 }

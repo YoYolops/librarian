@@ -22,7 +22,7 @@ export default class User extends BaseEntity {
     @Column()
     password: string;
 
-    @OneToOne(() => UserPersonalData, userPersonalData => userPersonalData.user)
+    @OneToOne(() => UserPersonalData, userPersonalData => userPersonalData.user, { cascade: true })
     personalData: UserPersonalData;
 
     static async registerNew(userData: UserRegistrationProtocol): Promise<User> {

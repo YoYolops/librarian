@@ -13,7 +13,7 @@ export default class JWTAdapter implements TokenAdapter {
     generate(data: any): TokenProtocol {
         return {
             readable: true, // wheter the token can be decoded into some sort of data or not
-            token: jwt.sign(data, this.secret, { expiresIn: 60*60*24 })
+            token: jwt.sign(data, this.secret, { expiresIn: 60*60*24 }),
         }
     }
 

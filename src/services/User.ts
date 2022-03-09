@@ -27,6 +27,8 @@ export default class UserService extends BaseService {
             relations: ["personalData"],
         });
 
+        console.log(userFound)
+
         if(!userFound) throw new UserError('You tried to log in with wrong credentials');
         if (!this.encrypter.compare(password, userFound.password)) {
             throw new UserError('You tried to log in with wrong credentials');
